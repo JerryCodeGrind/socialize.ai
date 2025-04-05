@@ -1,7 +1,7 @@
 import os
 
 # API Configuration
-ROBOFLOW_API_KEY = "KVRSGrnkiN5RqfgG6lTr"
+ROBOFLOW_API_KEY = "ndfRG10ZeU2cA3gmFEiF"
 FACE_DETECTION_MODEL = "face-detection-mik1i-tocjc/2"
 SERPAPI_API_KEY = "82a454714cf9f53f3d0765374326f8700b99d74fc15aefd1cbb8e560a8501a4a"
 IMGBB_API_KEY = "de4255be0d021cf0da7125ccffb246ee"
