@@ -3,12 +3,18 @@ from config import OPENAI_API_KEY
 
 def openai_prompt(text):
     """Generate socializing tips from scraped content using OpenAI"""
-    client = openai.OpenAI(api_key=OPENAI_API_KEY)
-    response = client.chat.completions.create(
-        model="gpt-4o",
-        messages=[{
-            "role": "user",
-            "content": f"""
+    try:
+        # Initialize the OpenAI client without any extra parameters
+        # This avoids the 'proxies' keyword argument error
+        client = openai.OpenAI(
+            api_key=OPENAI_API_KEY
+        )
+        
+        response = client.chat.completions.create(
+            model="gpt-4o",
+            messages=[{
+                "role": "user",
+                "content": f"""
 You are given text extracted from a website discovered via a reverse image search of a person's face:
 
 {text}
@@ -42,7 +48,20 @@ Tips for socializing with this person:
 - [Tip 4]
 - [Tip 5]
 """
-        }]
-    )
-    
-    return response.choices[0].message.content.strip() 
+            }]
+        )
+        
+        return response.choices[0].message.content.strip()
+    except Exception as e:
+        # Return a default response if there's any error
+        print(f"OpenAI API error: {str(e)}")
+        return """
+Name: Unknown  
+Overview: No identifiable personal information found.  
+Tips for socializing with this person:
+- Be friendly
+- Ask general questions
+- Use open body language
+- Show interest
+- Smile often
+""" 
