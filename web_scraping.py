@@ -9,6 +9,7 @@ def scrape_website_content(url: str) -> str:
         }
         response = requests.get(url, headers=headers, timeout=10)
         if response.status_code != 200:
+            print(f"Error scraping {url}: Status code {response.status_code}")
             return ""
             
         soup = BeautifulSoup(response.text, 'html.parser')
@@ -30,5 +31,6 @@ def scrape_website_content(url: str) -> str:
             text = text[:4000]
             
         return text
-    except:
+    except Exception as e:
+        print(f"Error scraping {url}: {str(e)}")
         return "" 
